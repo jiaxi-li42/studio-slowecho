@@ -1,0 +1,212 @@
+/* ============================================================
+   MODAL — css/modal.css
+   Expanded card overlay
+   ============================================================ */
+
+/* --- Overlay backdrop -------------------------------------- */
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 400;
+  background: var(--color-scrim);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--space-6);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--transition-base);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+}
+
+.modal-overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* --- Modal box --------------------------------------------- */
+
+.modal-inner {
+  position: relative;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border-2);
+  border-radius: var(--radius-lg);
+  width: 100%;
+  max-width: 760px;
+  max-height: 90dvh;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  transform: translateY(12px) scale(0.98);
+  transition: transform var(--transition-slow);
+}
+
+.modal-overlay.open .modal-inner {
+  transform: translateY(0) scale(1);
+}
+
+/* --- Close button ------------------------------------------ */
+
+.modal-close {
+  position: absolute;
+  top: var(--space-4);
+  right: var(--space-4);
+  z-index: 2;
+  width: 2rem;
+  height: 2rem;
+  border-radius: var(--radius-pill);
+  background: rgba(0, 0, 0, 0.55);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background var(--transition-fast);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+.modal-close:hover {
+  background: rgba(0, 0, 0, 0.8);
+}
+
+/* --- Modal carousel ---------------------------------------- */
+
+.modal-carousel {
+  position: relative;
+  aspect-ratio: 16 / 9;
+  background: var(--color-surface-3);
+  overflow: hidden;
+  flex-shrink: 0;
+  border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+}
+
+/* Reuse carousel-track / carousel-slide from cards.css */
+.modal-carousel .carousel-track {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.modal-carousel .carousel-slide {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity var(--transition-base);
+}
+
+.modal-carousel .carousel-slide.active {
+  opacity: 1;
+}
+
+/* Always show prev/next in modal (not just on hover) */
+.modal-carousel .carousel-prev,
+.modal-carousel .carousel-next {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: var(--radius-pill);
+  background: rgba(0, 0, 0, 0.55);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0.8;
+  transition: opacity var(--transition-fast), background var(--transition-fast);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+.modal-carousel .carousel-prev { left: var(--space-4); }
+.modal-carousel .carousel-next { right: var(--space-4); }
+.modal-carousel .carousel-prev:hover,
+.modal-carousel .carousel-next:hover {
+  opacity: 1;
+  background: rgba(0, 0, 0, 0.75);
+}
+
+.modal-carousel .carousel-dots {
+  position: absolute;
+  bottom: var(--space-3);
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: var(--space-2);
+}
+
+.modal-carousel .dot {
+  width: 7px;
+  height: 7px;
+}
+
+/* --- Modal content ----------------------------------------- */
+
+.modal-content {
+  padding: var(--space-6) var(--space-8);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.modal-head-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--space-4);
+}
+
+.modal-head-row > div {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  min-width: 0;
+}
+
+.modal-title {
+  font-size: var(--text-2xl);
+}
+
+.modal-description {
+  font-size: var(--text-md);
+  color: var(--color-text-muted);
+  line-height: var(--leading-loose);
+}
+
+/* Override card-meta defaults inside the modal */
+.modal-inner .card-meta {
+  margin-top: 0;
+}
+
+/* --- Responsive -------------------------------------------- */
+
+@media (max-width: 767px) {
+  .modal-overlay {
+    padding: 0;
+    align-items: flex-end;
+  }
+
+  .modal-inner {
+    max-width: 100%;
+    max-height: 92dvh;
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+  }
+
+  .modal-carousel {
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    aspect-ratio: 4 / 3;
+  }
+
+  .modal-content {
+    padding: var(--space-5) var(--space-5);
+  }
+
+  .modal-meta {
+    grid-template-columns: 1fr;
+  }
+}

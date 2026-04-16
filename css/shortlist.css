@@ -1,0 +1,266 @@
+/* ============================================================
+   SHORTLIST DRAWER — css/shortlist.css
+   Slide-in panel: saved locations, total duration, export
+   ============================================================ */
+
+/* --- Drawer overlay (scrim) -------------------------------- */
+
+.drawer-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 199;
+  background: var(--color-scrim);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--transition-base);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+}
+
+.drawer-overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* --- Drawer panel ------------------------------------------ */
+
+.shortlist-drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 200;
+  width: var(--drawer-width);
+  max-width: 100vw;
+  height: 100dvh;
+  background: var(--color-surface);
+  border-left: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  transform: translateX(100%);
+  transition: transform var(--transition-slow);
+}
+
+.shortlist-drawer.open {
+  transform: translateX(0);
+}
+
+/* --- Drawer header ----------------------------------------- */
+
+.drawer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 var(--space-6);
+  height: 3.5rem;
+  border-bottom: 1px solid var(--color-border);
+  flex-shrink: 0;
+}
+
+.drawer-title {
+  font-family: var(--font-heading);
+  font-size: var(--text-xl);
+  color: var(--color-text);
+}
+
+.drawer-close {
+  width: 2rem;
+  height: 2rem;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-muted);
+  border: 1px solid var(--color-border);
+  transition: color var(--transition-fast), border-color var(--transition-fast);
+}
+
+.drawer-close:hover {
+  color: var(--color-text);
+  border-color: var(--color-border-2);
+}
+
+/* --- Drawer body (scrollable list) ------------------------- */
+
+.drawer-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--space-4) var(--space-5);
+}
+
+.drawer-empty {
+  text-align: center;
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+  padding: var(--space-10) 0;
+}
+
+/* --- Shortlist items --------------------------------------- */
+
+.shortlist-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.shortlist-item {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-surface-2);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  transition: border-color var(--transition-fast);
+}
+
+.shortlist-item:hover {
+  border-color: var(--color-border-2);
+}
+
+.shortlist-item-info {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.shortlist-item-name {
+  font-size: var(--text-base);
+  font-weight: var(--weight-medium);
+  color: var(--color-text);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.shortlist-item-meta {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+}
+
+.shortlist-item-duration {
+  flex-shrink: 0;
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  white-space: nowrap;
+}
+
+.shortlist-remove {
+  flex-shrink: 0;
+  width: 1.75rem;
+  height: 1.75rem;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-faint);
+  border: 1px solid transparent;
+  transition: color var(--transition-fast), border-color var(--transition-fast), background var(--transition-fast);
+}
+
+.shortlist-remove:hover {
+  color: var(--color-traffic-high);
+  border-color: var(--color-border);
+  background: var(--color-surface-3);
+}
+
+/* --- Drawer footer ----------------------------------------- */
+
+.drawer-footer {
+  flex-shrink: 0;
+  padding: var(--space-5) var(--space-6);
+  border-top: 1px solid var(--color-border);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+  background: var(--color-surface);
+}
+
+.duration-summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.duration-label {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+
+.duration-value {
+  font-family: var(--font-heading);
+  font-size: var(--text-xl);
+  color: var(--color-accent);
+  font-weight: var(--weight-normal);
+}
+
+/* Export button */
+.export-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  width: 100%;
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-accent);
+  color: var(--color-bg);
+  border-radius: var(--radius-md);
+  font-weight: var(--weight-semibold);
+  font-size: var(--text-sm);
+  transition: background var(--transition-fast);
+}
+
+.export-btn:hover {
+  background: var(--color-accent-hover);
+}
+
+.export-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Export spinner */
+.export-spinner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+}
+
+.spinner-ring {
+  display: inline-block;
+  width: 1rem;
+  height: 1rem;
+  border: 2px solid var(--color-border-2);
+  border-top-color: var(--color-accent);
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* --- Responsive -------------------------------------------- */
+
+@media (max-width: 767px) {
+  .shortlist-drawer {
+    /* Slide up from bottom on mobile */
+    top: auto;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    max-height: 80dvh;
+    border-left: none;
+    border-top: 1px solid var(--color-border);
+    border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+    transform: translateY(100%);
+  }
+
+  .shortlist-drawer.open {
+    transform: translateY(0);
+  }
+}

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edinburgh Shoot Planner — Studio Slowecho</title>
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="css/variables.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link rel="stylesheet" href="css/filters.css">
+  <link rel="stylesheet" href="css/cards.css">
+  <link rel="stylesheet" href="css/modal.css">
+  <link rel="stylesheet" href="css/shortlist.css">
+  <link rel="stylesheet" href="css/map.css">
+</head>
+<body>
+
+  <!-- ================================================================
+       MAP — fills the entire viewport as background
+       ================================================================ -->
+  <section class="map-panel" id="map-panel" aria-label="Map of locations">
+    <div id="map"></div>
+  </section>
+
+
+  <!-- ================================================================
+       LOCATION PANEL
+       Desktop: floating left sidebar
+       Mobile:  bottom sheet with drag handle
+       ================================================================ -->
+  <aside class="location-panel" id="location-panel" aria-label="Browse locations">
+
+    <!-- Mobile-only drag handle -->
+    <div class="panel-grip" id="panel-grip" aria-label="Expand location list">
+      <div class="panel-grip-bar"></div>
+    </div>
+
+    <!-- Filter bar + shortlist toggle -->
+    <div class="panel-top">
+      <nav class="filter-bar" id="filter-bar" aria-label="Filter by location type">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="viewpoint">Viewpoint</button>
+        <button class="filter-btn" data-filter="historic">Historic</button>
+        <button class="filter-btn" data-filter="park">Park / Garden</button>
+        <button class="filter-btn" data-filter="street">Street / Architecture</button>
+        <button class="filter-btn" data-filter="waterfront">Waterfront</button>
+      </nav>
+
+      <button class="shortlist-toggle" id="shortlist-toggle" aria-label="View shortlist">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+             stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/>
+        </svg>
+        Shortlist
+        <span class="shortlist-badge" id="shortlist-count" aria-live="polite">0</span>
+      </button>
+    </div>
+
+    <!-- Scrollable card list -->
+    <div class="cards-panel" id="cards-panel">
+      <div class="cards-grid" id="cards-grid"></div>
+      <p class="no-results" id="no-results" hidden>No locations match this filter.</p>
+    </div>
+
+  </aside><!-- /location-panel -->
+
+
+  <!-- ================================================================
+       SHORTLIST DRAWER
+       ================================================================ -->
+  <div class="drawer-overlay" id="drawer-overlay" aria-hidden="true"></div>
+
+  <aside class="shortlist-drawer" id="shortlist-drawer" aria-label="Your shortlist">
+    <div class="drawer-header">
+      <h2 class="drawer-title">Shortlist</h2>
+      <button class="drawer-close" id="drawer-close" aria-label="Close shortlist">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+             stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+    </div>
+
+    <div class="drawer-body">
+      <p class="drawer-empty" id="drawer-empty">No locations saved yet.</p>
+      <ul class="shortlist-list" id="shortlist-list" aria-label="Saved locations"></ul>
+    </div>
+
+    <div class="drawer-footer">
+      <div class="duration-summary">
+        <span class="duration-label">Total shoot time</span>
+        <strong class="duration-value" id="duration-total">—</strong>
+      </div>
+      <button class="export-btn" id="export-btn">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+             stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+          <polyline points="7 10 12 15 17 10"/>
+          <line x1="12" y1="15" x2="12" y2="3"/>
+        </svg>
+        Export as JPEG
+      </button>
+    </div>
+  </aside>
+
+
+  <!-- ================================================================
+       CARD EXPAND MODAL
+       ================================================================ -->
+  <div class="modal-overlay" id="modal-overlay" role="dialog" aria-modal="true"
+       aria-label="Location details">
+    <div class="modal-inner" id="modal-inner"></div>
+  </div>
+
+
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://unpkg.com/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+  <script type="module" src="js/main.js"></script>
+
+</body>
+</html>

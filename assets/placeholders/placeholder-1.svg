@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 600" width="800" height="600">
+  <defs>
+    <linearGradient id="sky1" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"   stop-color="#1a1f2e"/>
+      <stop offset="100%" stop-color="#2d3555"/>
+    </linearGradient>
+    <linearGradient id="glow1" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%"   stop-color="#c8a96e" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#c8a96e" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Sky -->
+  <rect width="800" height="600" fill="url(#sky1)"/>
+
+  <!-- Horizon glow -->
+  <ellipse cx="400" cy="320" rx="380" ry="80" fill="url(#glow1)"/>
+
+  <!-- Distant hills -->
+  <path d="M0 360 Q100 290 200 310 Q320 260 420 300 Q540 250 660 290 Q740 310 800 295 L800 600 L0 600Z"
+        fill="#12172a" opacity="0.9"/>
+
+  <!-- Foreground hill -->
+  <path d="M0 430 Q150 380 300 400 Q450 360 600 390 Q700 400 800 380 L800 600 L0 600Z"
+        fill="#0d1018"/>
+
+  <!-- Stars -->
+  <circle cx="120" cy="80"  r="1.2" fill="#fff" opacity="0.7"/>
+  <circle cx="280" cy="55"  r="0.9" fill="#fff" opacity="0.6"/>
+  <circle cx="450" cy="40"  r="1.4" fill="#fff" opacity="0.8"/>
+  <circle cx="580" cy="90"  r="1"   fill="#fff" opacity="0.65"/>
+  <circle cx="680" cy="60"  r="1.1" fill="#fff" opacity="0.7"/>
+  <circle cx="200" cy="140" r="0.8" fill="#fff" opacity="0.5"/>
+  <circle cx="540" cy="130" r="1"   fill="#fff" opacity="0.6"/>
+  <circle cx="730" cy="110" r="0.9" fill="#fff" opacity="0.55"/>
+
+  <!-- Moon / sun glow -->
+  <circle cx="640" cy="160" r="28" fill="none" stroke="#c8a96e" stroke-width="1" opacity="0.3"/>
+  <circle cx="640" cy="160" r="20" fill="#f5dfa0" opacity="0.85"/>
+  <circle cx="640" cy="160" r="14" fill="#fdf0c8"/>
+
+  <!-- Silhouette of monument columns -->
+  <rect x="340" y="270" width="12" height="70" rx="2" fill="#0d1018"/>
+  <rect x="358" y="265" width="12" height="75" rx="2" fill="#0d1018"/>
+  <rect x="376" y="272" width="12" height="68" rx="2" fill="#0d1018"/>
+  <rect x="394" y="268" width="12" height="72" rx="2" fill="#0d1018"/>
+  <rect x="412" y="274" width="12" height="66" rx="2" fill="#0d1018"/>
+  <!-- Pediment -->
+  <polygon points="330,272 432,272 382,248" fill="#0d1018"/>
+
+  <!-- Photo credit area -->
+  <rect x="0" y="560" width="800" height="40" fill="rgba(0,0,0,0.4)"/>
+  <text x="16" y="585" font-family="Georgia, serif" font-size="13" fill="#888" letter-spacing="0.06em">PHOTO PLACEHOLDER</text>
+</svg>
