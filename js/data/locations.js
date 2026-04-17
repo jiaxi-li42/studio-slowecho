@@ -10,7 +10,7 @@
    ─────────────────────────────────────────────────────────────
    id           string   URL-safe slug (unique)
    name         string   Display name
-   type         string   'viewpoint' | 'historic' | 'park' | 'street' | 'waterfront'
+   type         string   'viewpoint' | 'historic' | 'greenspace' | 'street' | 'waterfront'
    description  string   Short description shown on the card
    lat          number   Latitude  (WGS 84)
    lng          number   Longitude (WGS 84)
@@ -125,7 +125,7 @@ export const locations = [
   {
     id: 'royal-botanic-garden',
     name: 'Royal Botanic Garden',
-    type: 'park',
+    type: 'greenspace',
     description: '72 acres of curated landscapes including glasshouses, a rock garden, and ancient woodland paths. Seasonal colour year-round — from spring blossom to the deep reds and golds of autumn.',
     lat: 55.9622,
     lng: -3.2094,
@@ -139,7 +139,7 @@ export const locations = [
   {
     id: 'holyrood-park',
     name: 'Holyrood Park',
-    type: 'park',
+    type: 'greenspace',
     description: 'A wild Highland landscape within the city — home to dramatic cliffs, St Margaret\'s Loch, and open heathland. Exceptional variety of terrain for adventurous, romantic, or fine-art shoots.',
     lat: 55.9421,
     lng: -3.1706,

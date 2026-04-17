@@ -1,17 +1,9 @@
 /* ============================================================
    MODAL — js/modules/modal.js
-   Expanded card overlay. Also triggers map focus on open.
+   Expanded location overlay with numbered carousel pagination.
    ============================================================ */
 
-import {
-  typeLabel,
-  getImages,
-  buildCarouselHtml,
-  buildMetaDl,
-  initCarouselInteraction,
-  icons,
-} from './ui.js';
-
+import { typeLabel, trafficClass, getImages } from './ui.js';
 import { isSaved } from './shortlist.js';
 
 let _locations = [];
@@ -33,9 +25,11 @@ export function initModal(locations) {
   });
 
   window.addEventListener('save-toggled', e => {
-    const saveBtn = document.querySelector('.modal-inner .save-btn');
-    if (saveBtn?.dataset.id === e.detail) {
-      applySaveBtnState(saveBtn, isSaved(e.detail));
+    const btn = document.querySelector('.modal-shortlist-btn');
+    if (btn?.dataset.id === e.detail) {
+      const saved = isSaved(e.detail);
+      btn.textContent = saved ? 'Remove from Shortlist' : 'Add to Shortlist';
+      btn.classList.toggle('saved', saved);
     }
   });
 }
@@ -48,21 +42,21 @@ function openModal(id) {
   const inner   = document.getElementById('modal-inner');
   if (!loc || !overlay || !inner) return;
 
-  inner.innerHTML = buildModalHtml(loc);
+  const images = getImages(loc);
+  inner.innerHTML = buildModalHtml(loc, images);
 
-  initCarouselInteraction(
-    inner.querySelector('.modal-carousel'),
-    getImages(loc).length
-  );
+  // Carousel
+  initModalCarousel(inner, images.length);
 
+  // Close button
   inner.querySelector('.modal-close')?.addEventListener('click', closeModal);
 
-  const saveBtn = inner.querySelector('.save-btn');
-  applySaveBtnState(saveBtn, isSaved(id));
-  saveBtn?.addEventListener('click', () =>
+  // Shortlist button
+  inner.querySelector('.modal-shortlist-btn')?.addEventListener('click', () =>
     window.dispatchEvent(new CustomEvent('save-toggle-request', { detail: id }))
   );
 
+  inner.scrollTop = 0;
   overlay.classList.add('open');
 }
 
@@ -70,36 +64,95 @@ function closeModal() {
   document.getElementById('modal-overlay')?.classList.remove('open');
 }
 
-/* --- HTML -------------------------------------------------- */
+/* --- Carousel interaction ---------------------------------- */
 
-function buildModalHtml(loc) {
-  const images = getImages(loc);
-  return `
-    <button class="modal-close" aria-label="Close">${icons.close()}</button>
+function initModalCarousel(inner, slideCount) {
+  if (slideCount <= 1) return;
 
-    <div class="modal-carousel">
-      ${buildCarouselHtml(images)}
-    </div>
+  const slides   = inner.querySelectorAll('.carousel-slide');
+  const pageNums = inner.querySelectorAll('.modal-page-num');
+  let current = 0;
 
-    <div class="modal-content">
-      <div class="modal-head-row">
-        <div>
-          <span class="type-badge type-${loc.type}">${typeLabel(loc.type)}</span>
-          <h2 class="modal-title">${loc.name}</h2>
-        </div>
-        <button class="save-btn" data-id="${loc.id}"
-          aria-label="Save ${loc.name}" aria-pressed="false">
-          ${icons.bookmark()}
-        </button>
-      </div>
-      <p class="modal-description">${loc.description}</p>
-      ${buildMetaDl(loc)}
-    </div>
-  `;
+  function goTo(index) {
+    slides[current].classList.remove('active');
+    pageNums[current]?.classList.remove('active');
+    current = ((index % slideCount) + slideCount) % slideCount;
+    slides[current].classList.add('active');
+    pageNums[current]?.classList.add('active');
+  }
+
+  inner.querySelector('.modal-pagination-prev')?.addEventListener('click', () => goTo(current - 1));
+  inner.querySelector('.modal-pagination-next')?.addEventListener('click', () => goTo(current + 1));
+  pageNums.forEach(btn =>
+    btn.addEventListener('click', () => goTo(parseInt(btn.dataset.index, 10)))
+  );
 }
 
-function applySaveBtnState(btn, saved) {
-  if (!btn) return;
-  btn.classList.toggle('saved', saved);
-  btn.setAttribute('aria-pressed', String(saved));
+/* --- HTML builder ------------------------------------------ */
+
+function buildModalHtml(loc, images) {
+  const saved = isSaved(loc.id);
+  const tc    = trafficClass(loc.traffic);
+
+  const slides = images
+    .map((src, i) =>
+      `<img class="carousel-slide${i === 0 ? ' active' : ''}" src="${src}" alt="Photo ${i + 1}" loading="lazy">`)
+    .join('');
+
+  const pagination = images.length > 1 ? `
+    <div class="modal-pagination">
+      <button class="modal-pagination-prev" aria-label="Previous">chevron_left</button>
+      <div class="modal-page-nums">
+        ${images.map((_, i) =>
+          `<button class="modal-page-num${i === 0 ? ' active' : ''}" data-index="${i}">${i + 1}</button>`
+        ).join('')}
+      </div>
+      <button class="modal-pagination-next" aria-label="Next">chevron_right</button>
+    </div>
+  ` : '';
+
+  return `
+    <button class="modal-close" aria-label="Close">Close</button>
+
+    <div class="modal-carousel">
+      <div class="carousel-track">${slides}</div>
+    </div>
+
+    ${pagination}
+
+    <div class="modal-content">
+      <div class="modal-head">
+        <h2 class="modal-title">${loc.name}</h2>
+        <p class="modal-type">${typeLabel(loc.type)}</p>
+      </div>
+      <p class="modal-description">${loc.description}</p>
+    </div>
+
+    <div class="modal-details">
+      <dl class="modal-detail-grid">
+        <div class="modal-detail-item">
+          <dt>Best Time</dt>
+          <dd>${loc.bestTime}</dd>
+        </div>
+        <div class="modal-detail-item">
+          <dt>Traffic</dt>
+          <dd class="traffic-${tc}">${loc.traffic}</dd>
+        </div>
+        <div class="modal-detail-item">
+          <dt>Duration</dt>
+          <dd>~${loc.duration} min</dd>
+        </div>
+        <div class="modal-detail-item">
+          <dt>Opening Times</dt>
+          <dd>${loc.openingTimes}</dd>
+        </div>
+      </dl>
+    </div>
+
+    <div class="modal-footer">
+      <button class="modal-shortlist-btn${saved ? ' saved' : ''}" data-id="${loc.id}">
+        ${saved ? 'Remove from Shortlist' : 'Add to Shortlist'}
+      </button>
+    </div>
+  `;
 }

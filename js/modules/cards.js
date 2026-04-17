@@ -1,18 +1,10 @@
 /* ============================================================
    CARDS — js/modules/cards.js
-   Renders location cards into the grid and handles carousel,
-   save-button toggle, expand click, and hover→map events.
+   Renders location cards. No carousel on cards (static first
+   image only). Carousel exists only in the modal.
    ============================================================ */
 
-import {
-  typeLabel,
-  trafficClass,
-  getImages,
-  buildCarouselHtml,
-  buildMetaDl,
-  initCarouselInteraction,
-  icons,
-} from './ui.js';
+import { typeLabel, getImages } from './ui.js';
 
 /* ---------------------------------------------------------- */
 
@@ -29,13 +21,11 @@ export function renderCards(locations) {
 
 /** Update a single card's saved visual state */
 export function updateCardSaveState(id, saved) {
-  const card    = document.querySelector(`.card[data-id="${id}"]`);
-  const saveBtn = card?.querySelector('.save-btn');
-  if (!card || !saveBtn) return;
-
+  const card = document.querySelector(`.card[data-id="${id}"]`);
+  const btn  = card?.querySelector('.card-shortlist-btn');
+  if (!card || !btn) return;
   card.classList.toggle('saved', saved);
-  saveBtn.classList.toggle('saved', saved);
-  saveBtn.setAttribute('aria-pressed', String(saved));
+  btn.textContent = saved ? 'Remove from Shortlist' : 'Add to Shortlist';
 }
 
 /** Show or hide cards based on active filter */
@@ -54,44 +44,30 @@ export function applyCardFilter(type) {
 function createCard(loc) {
   const images  = getImages(loc);
   const article = document.createElement('article');
-  article.className   = 'card';
+  article.className    = 'card';
   article.dataset.id   = loc.id;
   article.dataset.type = loc.type;
 
   article.innerHTML = `
-    <div class="card-carousel">
-      ${buildCarouselHtml(images)}
+    <div class="card-image">
+      <img src="${images[0]}" alt="${loc.name}" loading="lazy">
     </div>
-    <div class="card-body">
-      <div class="card-head-row">
-        <div>
-          <span class="type-badge type-${loc.type}">${typeLabel(loc.type)}</span>
-          <h3 class="card-title">${loc.name}</h3>
-        </div>
-        <button class="save-btn" data-id="${loc.id}"
-          aria-label="Save ${loc.name}" aria-pressed="false">
-          ${icons.bookmark()}
-        </button>
-      </div>
-      <p class="card-desc">${loc.description}</p>
-      ${buildMetaDl(loc)}
+    <div class="card-info">
+      <p class="card-name">${loc.name}</p>
+      <p class="card-type">${typeLabel(loc.type)}</p>
+      <button class="card-shortlist-btn" data-id="${loc.id}">Add to Shortlist</button>
     </div>
   `;
 
-  // Carousel interaction
-  initCarouselInteraction(article.querySelector('.card-carousel'), images.length);
-
-  // Save button
-  article.querySelector('.save-btn').addEventListener('click', e => {
+  // Shortlist text button
+  article.querySelector('.card-shortlist-btn').addEventListener('click', e => {
     e.stopPropagation();
     window.dispatchEvent(new CustomEvent('save-toggle-request', { detail: loc.id }));
   });
 
-  // Click body — behaviour differs by viewport:
-  //   Mobile: collapse the bottom sheet and fly the map to this location.
-  //   Desktop: open the modal overlay AND fly the map to this location.
-  article.querySelector('.card-body').addEventListener('click', e => {
-    if (e.target.closest('.save-btn')) return;
+  // Click card → desktop: open modal + focus map; mobile: collapse sheet + focus map
+  article.addEventListener('click', e => {
+    if (e.target.closest('.card-shortlist-btn')) return;
     if (window.innerWidth <= 767) {
       window.dispatchEvent(new CustomEvent('collapse-sheet'));
       window.dispatchEvent(new CustomEvent('location-focus', { detail: loc.id }));
@@ -101,7 +77,7 @@ function createCard(loc) {
     }
   });
 
-  // Hover → highlight map marker
+  // Hover → highlight map marker (desktop only)
   article.addEventListener('mouseenter', () =>
     window.dispatchEvent(new CustomEvent('card-hover', { detail: loc.id })));
   article.addEventListener('mouseleave', () =>
@@ -118,12 +94,9 @@ function updateNoResults() {
   noResults.hidden = visible;
 }
 
-/** Scroll a card into view and briefly highlight it */
+/** Scroll a card into view (desktop only) */
 export function scrollToCard(id) {
   const card = document.querySelector(`.card[data-id="${id}"]`);
   if (!card) return;
-
-  card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-  card.style.outline = `2px solid var(--color-accent)`;
-  setTimeout(() => { card.style.outline = ''; }, 1200);
+  card.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }

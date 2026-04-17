@@ -4,7 +4,7 @@
    the total shoot duration display.
    ============================================================ */
 
-import { typeLabel, formatDuration, icons } from './ui.js';
+import { typeLabel, formatDuration } from './ui.js';
 
 /* Shared state */
 const _savedIds   = new Set();
@@ -19,8 +19,6 @@ export function initShortlist(locations) {
   document.getElementById('shortlist-toggle')
     ?.addEventListener('click', openDrawer);
   document.getElementById('drawer-close')
-    ?.addEventListener('click', closeDrawer);
-  document.getElementById('drawer-overlay')
     ?.addEventListener('click', closeDrawer);
 
   // Listen for save toggle requests
@@ -53,16 +51,12 @@ export function isSaved(id) {
 /* --- Drawer ------------------------------------------------ */
 
 function openDrawer() {
-  const drawer  = document.getElementById('shortlist-drawer');
-  const overlay = document.getElementById('drawer-overlay');
   refreshDrawerList();
-  drawer?.classList.add('open');
-  overlay?.classList.add('open');
+  document.getElementById('shortlist-drawer')?.classList.add('open');
 }
 
 function closeDrawer() {
   document.getElementById('shortlist-drawer')?.classList.remove('open');
-  document.getElementById('drawer-overlay')?.classList.remove('open');
 }
 
 /* --- List rendering ---------------------------------------- */
@@ -95,13 +89,9 @@ function refreshDrawerList() {
     li.innerHTML = `
       <div class="shortlist-item-info">
         <span class="shortlist-item-name">${loc.name}</span>
-        <span class="shortlist-item-meta">${typeLabel(loc.type)} · ${loc.bestTime}</span>
+        <span class="shortlist-item-type">${typeLabel(loc.type)}</span>
       </div>
-      <span class="shortlist-item-duration">~${loc.duration} min</span>
-      <button class="shortlist-remove" data-id="${loc.id}"
-        aria-label="Remove ${loc.name} from shortlist">
-        ${icons.remove()}
-      </button>
+      <button class="shortlist-remove" data-id="${loc.id}" aria-label="Remove ${loc.name}">Remove</button>
     `;
     li.querySelector('.shortlist-remove').addEventListener('click', e => {
       e.stopPropagation();
@@ -114,15 +104,11 @@ function refreshDrawerList() {
 /* --- Badge ------------------------------------------------- */
 
 function updateBadge() {
-  const badge = document.getElementById('shortlist-count');
-  if (!badge) return;
   const count = _savedIds.size;
-  badge.textContent = count;
-  // Animate pop
-  badge.classList.remove('pop');
-  void badge.offsetWidth; // reflow
-  badge.classList.add('pop');
-  setTimeout(() => badge.classList.remove('pop'), 150);
+  const countEl = document.getElementById('shortlist-count');
+  if (countEl) countEl.textContent = count;
+  const countDrawerEl = document.getElementById('shortlist-count-drawer');
+  if (countDrawerEl) countDrawerEl.textContent = count;
 }
 
 /** Returns the array of currently saved location objects */

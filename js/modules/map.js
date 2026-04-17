@@ -4,7 +4,7 @@
    card ↔ marker synchronisation, and location focus.
    ============================================================ */
 
-import { typeLabel, icons } from './ui.js';
+import { typeLabel } from './ui.js';
 import { isSaved } from './shortlist.js';
 
 let _map       = null;
@@ -18,8 +18,10 @@ export function initMap(locations) {
   _map = L.map('map', {
     center: [55.9533, -3.1883],
     zoom: 13,
-    zoomControl: true,
+    zoomControl: false,
   });
+
+  L.control.zoom({ position: 'topright' }).addTo(_map);
 
   L.tileLayer(
     'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
@@ -98,9 +100,14 @@ function addMarker(loc) {
       className: 'custom-popup',
     });
 
-  // Sync saved state and update button label each time popup opens
+  // Highlight marker while popup is open; restore on close
   marker.on('popupopen', () => {
     updatePopupSaveState(marker, loc.id);
+    el.classList.add('highlighted');
+  });
+
+  marker.on('popupclose', () => {
+    el.classList.remove('highlighted');
   });
 
   marker.on('click', () => {
@@ -114,15 +121,14 @@ function buildPopup(loc) {
   const div = document.createElement('div');
   div.className = 'marker-popup';
   div.innerHTML = `
-    <p class="marker-popup-name">${loc.name}</p>
-    <p class="marker-popup-type">${typeLabel(loc.type)} · ~${loc.duration} min</p>
-    <div class="marker-popup-actions">
-      <button class="marker-popup-save" data-id="${loc.id}">
-        ${icons.bookmark()} Save
-      </button>
-      <button class="marker-popup-detail" data-id="${loc.id}">
-        View detail
-      </button>
+    <div class="popup-info">
+      <p class="popup-name">${loc.name}</p>
+      <p class="popup-type">${typeLabel(loc.type)}</p>
+    </div>
+    <div class="popup-actions">
+      <button class="marker-popup-detail" data-id="${loc.id}">View Details</button>
+      <button class="marker-popup-save" data-id="${loc.id}">${isSaved(loc.id) ? 'Remove from Shortlist' : 'Add to Shortlist'}</button>
+      </div>
     </div>
   `;
   return div;
@@ -134,12 +140,12 @@ function updateMarkerSavedState(id) {
   const entry = _markers[id];
   if (!entry) return;
   entry.el.classList.toggle('saved', isSaved(id));
-  if (entry.marker.isPopupOpen()) updatePopupSaveState(entry.marker, id);
+  updatePopupSaveState(entry.marker, id); // getElement() is null-safe when popup is closed
 }
 
 function updatePopupSaveState(marker, id) {
   const btn = marker.getPopup()?.getElement()?.querySelector('.marker-popup-save');
-  if (btn) btn.classList.toggle('saved', isSaved(id));
+  if (btn) btn.textContent = isSaved(id) ? 'Remove from Shortlist' : 'Add to Shortlist';
 }
 
 export function highlightMarker(id) {
