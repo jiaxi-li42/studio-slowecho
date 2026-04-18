@@ -75,20 +75,32 @@ function showExportOverlay(dataUrl) {
   const img = document.createElement('img');
   img.src = dataUrl;
   img.style.cssText = `
-    max-width:100%;max-height:calc(100dvh - 100px);
+    max-width:100%;max-height:calc(100dvh - 150px);
     height:auto;display:block;
   `;
 
   const closeBtn = document.createElement('button');
   closeBtn.textContent = 'Close';
   closeBtn.style.cssText = `
+    width:480px;max-width:100%;
     background:none;border:1px solid rgba(255,255,255,0.3);
     color:#fff;font-family:inherit;font-size:13px;
-    padding:8px 24px;cursor:pointer;
+    padding:12px 0;cursor:pointer;
     transition:border-color 0.15s;
   `;
   closeBtn.addEventListener('mouseenter', () => closeBtn.style.borderColor = '#fff');
   closeBtn.addEventListener('mouseleave', () => closeBtn.style.borderColor = 'rgba(255,255,255,0.3)');
+
+  const hint = document.createElement('p');
+  hint.textContent = 'Long-press the image to save it to your device.';
+  hint.style.cssText = `
+    width:480px;max-width:100%;
+    font-family:inherit;font-size:12px;
+    color:rgba(255,255,255,0.4);
+    line-height:1.5;
+    text-align:left;
+    margin-top: -8px;
+  `;
 
   const dismiss = () => overlay.remove();
   closeBtn.addEventListener('click', dismiss);
@@ -99,6 +111,7 @@ function showExportOverlay(dataUrl) {
 
   overlay.appendChild(img);
   overlay.appendChild(closeBtn);
+  overlay.appendChild(hint);
   document.body.appendChild(overlay);
 }
 
