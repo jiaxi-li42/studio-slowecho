@@ -4,7 +4,7 @@
    the total shoot duration display.
    ============================================================ */
 
-import { typeLabel, formatDuration } from './ui.js';
+import { typeLabels, formatDuration } from './ui.js';
 
 /* Shared state */
 const _savedIds   = new Set();
@@ -89,7 +89,7 @@ function refreshDrawerList() {
     li.innerHTML = `
       <div class="shortlist-item-info">
         <span class="shortlist-item-name">${loc.name}</span>
-        <span class="shortlist-item-type">${typeLabel(loc.type)}</span>
+        <span class="shortlist-item-type">${typeLabels(loc)}</span>
       </div>
       <button class="shortlist-remove" data-id="${loc.id}" aria-label="Remove ${loc.name}">Remove</button>
     `;

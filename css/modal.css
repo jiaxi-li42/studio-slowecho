@@ -192,6 +192,7 @@
 .modal-type {
   font-size: var(--text-sm);
   color: var(--color-text-muted);
+  font-weight: var(--weight-medium);
 }
 
 .modal-description {
@@ -236,9 +237,6 @@
   text-align: end;
 }
 
-.modal-detail-item dd.traffic-low      { color: var(--color-traffic-low); }
-.modal-detail-item dd.traffic-moderate { color: var(--color-traffic-moderate); }
-.modal-detail-item dd.traffic-high     { color: var(--color-traffic-high); }
 
 /* --- Footer shortlist button ------------------------------- */
 

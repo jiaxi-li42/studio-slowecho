@@ -4,7 +4,7 @@
    Builds a self-contained off-screen element for a clean render.
    ============================================================ */
 
-import { typeLabel, formatDuration } from './ui.js';
+import { typeLabels, formatDuration } from './ui.js';
 import { getSavedLocations } from './shortlist.js';
 
 /* ---------------------------------------------------------- */
@@ -34,18 +34,31 @@ async function exportShortlist() {
 
     const canvas = await html2canvas(el, {
       backgroundColor: '#FEFAD7',
-      scale:            2,
+      scale:            3,
       useCORS:          true,
       logging:          false,
     });
 
     document.body.removeChild(el);
 
-    const date = new Date().toISOString().slice(0, 10);
-    const link = document.createElement('a');
-    link.download = `slowecho-shortlist-${date}.jpg`;
-    link.href     = canvas.toDataURL('image/jpeg', 0.92);
-    link.click();
+    const dataUrl = canvas.toDataURL('image/jpeg', 0.92);
+    const win = window.open('', '_blank');
+    if (win) {
+      win.document.write(`<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Your Shortlist — Studio Slowecho</title>
+    <style>
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      body { background: #1a1a1a; display: flex; justify-content: center; align-items: flex-start; min-height: 100vh; padding: 40px 20px; }
+      img { max-width: 100%; height: auto; display: block; }
+    </style>
+  </head>
+  <body><img src="${dataUrl}"></body>
+</html>`);
+      win.document.close();
+    }
 
   } catch (err) {
     console.error('[export] Failed:', err);
@@ -65,6 +78,7 @@ function buildExportElement(saved) {
   const BG      = '#FEFAD7';
   const DIVIDER = '#E5DDB9';
   const TEXT    = '#2d2d2d';
+  const MUTED   = '#9a9585';
   const FH      = "'EB Garamond', Georgia, serif";
   const FB      = "'DM Sans', system-ui, sans-serif";
   const PAD     = '64px';
@@ -73,7 +87,7 @@ function buildExportElement(saved) {
   const el = document.createElement('div');
   el.style.cssText = `
     position:fixed;left:-9999px;top:0;
-    width:500px;
+    width:560px;
     background:${BG};
     color:${TEXT};
     font-family:${FB};
@@ -99,11 +113,11 @@ function buildExportElement(saved) {
       ">${loc.name}</span>
       <span style="
         font-family:${FB};
-        font-size:14px;
-        color:${TEXT};
+        font-size:13px;
+        color:${MUTED};
         white-space:nowrap;
         margin-left:16px;
-      ">${typeLabel(loc.type)}</span>
+      ">${typeLabels(loc)}</span>
     </div>
   `).join('');
 
@@ -125,7 +139,7 @@ function buildExportElement(saved) {
       align-items:center;
       justify-content:space-between;
     ">
-      <span style="font-family:${FB};font-size:13px;color:${TEXT};">
+      <span style="font-family:${FB};font-size:13px;color:${TEXT};font-weight:500;">
         Estimated Duration (Commute Time Excl.)
       </span>
       <span style="font-family:${FB};font-size:14px;color:${TEXT};font-weight:500;white-space:nowrap;margin-left:16px;">
@@ -136,3 +150,9 @@ function buildExportElement(saved) {
 
   return el;
 }
+
+/* --- Fix text offset downwards ----------------------------- */
+const style = document.createElement('style');
+    document.head.appendChild(style);
+    style.sheet?.insertRule('body > div:last-child img { display: inline-block; }');
+    

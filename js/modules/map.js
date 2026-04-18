@@ -4,7 +4,7 @@
    card ↔ marker synchronisation, and location focus.
    ============================================================ */
 
-import { typeLabel } from './ui.js';
+import { typeLabels } from './ui.js';
 import { isSaved } from './shortlist.js';
 
 let _map       = null;
@@ -123,7 +123,7 @@ function buildPopup(loc) {
   div.innerHTML = `
     <div class="popup-info">
       <p class="popup-name">${loc.name}</p>
-      <p class="popup-type">${typeLabel(loc.type)}</p>
+      <p class="popup-type">${typeLabels(loc)}</p>
     </div>
     <div class="popup-actions">
       <button class="marker-popup-detail" data-id="${loc.id}">View</button>
@@ -160,8 +160,9 @@ export function resetHighlights() {
 
 function updateMarkerFilter(type) {
   Object.entries(_markers).forEach(([id, { el }]) => {
-    const loc  = _locations.find(l => l.id === id);
-    const show = type === 'all' || loc?.type === type;
+    const loc   = _locations.find(l => l.id === id);
+    const types = loc?.types ?? (loc?.type ? [loc.type] : []);
+    const show  = type === 'all' || types.includes(type);
     el.style.opacity       = show ? '1'  : '0.18';
     el.style.pointerEvents = show ? ''   : 'none';
   });

@@ -3,14 +3,15 @@
    ============================================================
    To add a location: copy one object, fill in all fields, save.
    To add real images: add an `images` array of file paths.
-     e.g.  images: ['assets/calton-hill-1.jpg', 'assets/calton-hill-2.jpg']
-   If `images` is omitted, placeholder SVGs are used automatically.
+     e.g.  images: ['assets/calton-hill-1.jpg', ...]
+   If `images` is omitted, the placeholder SVG is used.
 
    Field reference:
    ─────────────────────────────────────────────────────────────
    id           string   URL-safe slug (unique)
    name         string   Display name
-   type         string   'viewpoint' | 'historic' | 'greenspace' | 'street' | 'waterfront'
+   type         string   Primary type (first entry of `types`)
+   types        string[] All applicable filter categories
    description  string   Short description shown on the card
    lat          number   Latitude  (WGS 84)
    lng          number   Longitude (WGS 84)
@@ -18,16 +19,30 @@
    duration     number   Estimated shoot duration in minutes
    traffic      string   'Low' | 'Moderate' | 'High'
    openingTimes string   Access hours or notes
-   imageCount   number   How many placeholder slides to show (1–3)
-   images       string[] Optional — paths to real images (overrides placeholders)
+   images       string[] Optional — paths to real images (overrides placeholder)
    ============================================================ */
 
 export const locations = [
 
   {
+    id: 'advocates-close',
+    name: "Advocate's Close",
+    type: 'historic-street',
+    types: ['historic-street'],
+    description: "A steep, atmospheric close off the Royal Mile with dramatic stone stairways and framed city views. One of Edinburgh's most character-rich alleyways — narrow, layered, and full of texture.",
+    lat: 55.9496,
+    lng: -3.1912,
+    bestTime: 'Morning for shafts of directional light',
+    duration: 20,
+    traffic: 'Moderate',
+    openingTimes: 'Open 24 hours',
+  },
+
+  {
     id: 'calton-hill',
     name: 'Calton Hill',
     type: 'viewpoint',
+    types: ['viewpoint', 'greenspace'],
     description: 'Panoramic views over the Old Town skyline, the Firth of Forth, and beyond. Home to the National Monument and Nelson\'s Monument, with open grassy slopes perfect for lifestyle and portrait work.',
     lat: 55.9554,
     lng: -3.1820,
@@ -35,55 +50,223 @@ export const locations = [
     duration: 60,
     traffic: 'Moderate',
     openingTimes: 'Open 24 hours',
-    imageCount: 3,
   },
 
   {
-    id: 'arthurs-seat',
-    name: "Arthur's Seat",
-    type: 'viewpoint',
-    description: "Edinburgh's ancient volcano offers sweeping 360° views of the city and coast. The summit and surrounding Holyrood Park deliver dramatic, rugged backdrops — from heathered slopes to rocky outcrops.",
-    lat: 55.9443,
-    lng: -3.1614,
-    bestTime: 'Sunrise for mist and solitude',
-    duration: 90,
+    id: 'circus-lane',
+    name: 'Circus Lane',
+    type: 'hidden-gem',
+    types: ['historic-street', 'hidden-gem'],
+    description: 'A hidden cobbled mews in Stockbridge, lined with pastel-painted cottages and climbing greenery. One of Edinburgh\'s most charming and lesser-known backstreets.',
+    lat: 55.9574,
+    lng: -3.2053,
+    bestTime: 'Morning with dappled light',
+    duration: 20,
     traffic: 'Low',
     openingTimes: 'Open 24 hours',
-    imageCount: 3,
   },
 
   {
-    id: 'edinburgh-castle',
-    name: 'Edinburgh Castle',
-    type: 'historic',
-    description: 'The iconic fortress dominates the skyline from its volcanic crag. The esplanade and surrounding closes offer grand architectural backdrops ideal for editorial, bridal, and heritage shoots.',
-    lat: 55.9486,
-    lng: -3.1999,
-    bestTime: 'Early morning before crowds arrive',
-    duration: 45,
+    id: 'cockburn-street',
+    name: 'Cockburn Street',
+    type: 'historic-street',
+    types: ['historic-street'],
+    description: 'A curving Victorian street winding from the Royal Mile down to Waverley, lined with independent boutiques and mosaic pavements. Colourful, layered, and full of urban character.',
+    lat: 55.9490,
+    lng: -3.1910,
+    bestTime: 'Early morning before shops open',
+    duration: 30,
     traffic: 'High',
-    openingTimes: '09:30–18:00 (Apr–Oct), 09:30–17:00 (Nov–Mar)',
-    imageCount: 3,
+    openingTimes: 'Open 24 hours (quietest before 09:00)',
   },
 
   {
-    id: 'greyfriars-kirkyard',
-    name: 'Greyfriars Kirkyard',
-    type: 'historic',
-    description: 'One of Edinburgh\'s most atmospheric churchyards — draped in moss-covered stones and ancient yew trees. Beautifully moody in overcast light, ideal for editorial, fine-art, and gothic-inspired portraits.',
-    lat: 55.9466,
-    lng: -3.1907,
+    id: 'dean-village',
+    name: 'Dean Village',
+    type: 'hidden-gem',
+    types: ['greenspace', 'waterside', 'hidden-gem'],
+    description: 'A hidden riverside hamlet tucked below street level, with stone mill buildings and the Water of Leith winding through. A tranquil, storybook setting just minutes from the city centre.',
+    lat: 55.9549,
+    lng: -3.2131,
+    bestTime: 'Mid-morning with dappled riverside light',
+    duration: 45,
+    traffic: 'Low',
+    openingTimes: 'Open 24 hours',
+  },
+
+  {
+    id: 'greyfriars-bobby',
+    name: 'Greyfriars Bobby',
+    type: 'hidden-gem',
+    types: ['architecture', 'hidden-gem'],
+    description: "The iconic bronze terrier and surrounding Greyfriars Kirk churchyard. Atmospheric stonework, moss-covered monuments, and rich history make this a compact but deeply evocative location.",
+    lat: 55.9471,
+    lng: -3.1927,
     bestTime: 'Overcast mornings or blue hour',
+    duration: 20,
+    traffic: 'Moderate',
+    openingTimes: 'Open 24 hours',
+  },
+
+  {
+    id: 'holyrood-park',
+    name: 'Holyrood Park',
+    type: 'viewpoint',
+    types: ['viewpoint', 'greenspace', 'hidden-gem'],
+    description: "A wild Highland landscape within the city — dramatic cliffs, St Margaret's Loch, and open heathland. Exceptional variety of terrain for adventurous, romantic, or fine-art shoots.",
+    lat: 55.9421,
+    lng: -3.1706,
+    bestTime: 'Golden hour; any time for overcast drama',
+    duration: 75,
+    traffic: 'Moderate',
+    openingTimes: 'Open 24 hours',
+  },
+
+  {
+    id: 'new-college',
+    name: 'New College',
+    type: 'architecture',
+    types: ['architecture'],
+    description: 'The neo-gothic twin spires of New College rise dramatically from The Mound, framing a courtyard of worn stone and ecclesiastical detail. Striking in any light.',
+    lat: 55.9504,
+    lng: -3.1953,
+    bestTime: 'Overcast for even light on stonework',
+    duration: 25,
+    traffic: 'Low',
+    openingTimes: 'Exterior accessible 24 hours',
+  },
+
+  {
+    id: 'old-college',
+    name: 'Old College',
+    type: 'architecture',
+    types: ['architecture'],
+    description: "Robert Adam's grand neoclassical quadrangle at the heart of Edinburgh University. Stately columns, cobbled courtyards, and the iconic dome make for an elegant architectural backdrop.",
+    lat: 55.9474,
+    lng: -3.1851,
+    bestTime: 'Early morning before students arrive',
     duration: 30,
     traffic: 'Low',
-    openingTimes: 'Mon–Fri 10:00–16:30, Sat 10:00–14:30',
-    imageCount: 2,
+    openingTimes: 'Courtyard open Mon–Fri 08:00–18:00',
+  },
+
+  {
+    id: 'portobello-beach',
+    name: 'Portobello Beach',
+    type: 'waterside',
+    types: ['waterside'],
+    description: "Edinburgh's seaside escape — wide sandy beach, a Victorian promenade, and open skies that stretch to the Firth of Forth. Perfect for natural light portraits and relaxed coastal lifestyle work.",
+    lat: 55.9569,
+    lng: -3.1082,
+    bestTime: 'Golden hour or overcast for soft, even light',
+    duration: 60,
+    traffic: 'Moderate',
+    openingTimes: 'Open 24 hours',
+  },
+
+  {
+    id: 'ross-fountain',
+    name: 'Ross Fountain',
+    type: 'architecture',
+    types: ['architecture', 'greenspace'],
+    description: 'The ornate Victorian fountain at the heart of Princes Street Gardens, with Edinburgh Castle rising as a backdrop. A compact, painterly setting rich in detail and grandeur.',
+    lat: 55.9510,
+    lng: -3.2023,
+    bestTime: 'Mid-morning for castle backdrop in full light',
+    duration: 20,
+    traffic: 'Moderate',
+    openingTimes: 'Gardens open 24 hours',
+  },
+
+  {
+    id: 'scott-monument',
+    name: 'Scott Monument',
+    type: 'architecture',
+    types: ['architecture'],
+    description: 'The towering Victorian gothic spire on Princes Street, rising 61 metres above the gardens. A dramatic architectural anchor for city portraits — best viewed from East Princes Street Gardens.',
+    lat: 55.9519,
+    lng: -3.1936,
+    bestTime: 'Early morning or blue hour',
+    duration: 30,
+    traffic: 'High',
+    openingTimes: 'Monument 10:00–18:00; exterior 24 hours',
+  },
+
+  {
+    id: 'st-giles-cathedral',
+    name: "St. Giles' Cathedral",
+    type: 'architecture',
+    types: ['architecture'],
+    description: 'The High Kirk of Edinburgh dominates the Royal Mile with its ornate crown spire and medieval stonework. Magnificent in any light — exterior details reward close attention.',
+    lat: 55.9496,
+    lng: -3.1925,
+    bestTime: 'Overcast for even stone tones',
+    duration: 30,
+    traffic: 'High',
+    openingTimes: 'Mon–Fri 09:00–19:00, Sat 09:00–17:00, Sun 13:00–17:00',
+  },
+
+  {
+    id: 'the-cowgate',
+    name: 'The Cowgate',
+    type: 'historic-street',
+    types: ['historic-street'],
+    description: 'A sunken medieval street running beneath the South Bridge arches — raw stone, dramatic vaults, and a gritty urban atmosphere unlike anywhere else in the city.',
+    lat: 55.9480,
+    lng: -3.1900,
+    bestTime: 'Blue hour or night for dramatic uplighting',
+    duration: 25,
+    traffic: 'Low',
+    openingTimes: 'Open 24 hours',
+  },
+
+  {
+    id: 'the-meadows',
+    name: 'The Meadows',
+    type: 'greenspace',
+    types: ['greenspace', 'hidden-gem'],
+    description: 'Open parkland just south of the Old Town, with long tree-lined paths and open views back to the skyline. Spacious, unhurried, and beautiful in spring blossom and autumn colour.',
+    lat: 55.9406,
+    lng: -3.1864,
+    bestTime: 'Late morning or afternoon in good light',
+    duration: 45,
+    traffic: 'Moderate',
+    openingTimes: 'Open 24 hours',
+  },
+
+  {
+    id: 'the-vennel',
+    name: 'The Vennel Viewpoint',
+    type: 'viewpoint',
+    types: ['viewpoint'],
+    description: 'A stepped close off the Grassmarket offering one of the best framed views of Edinburgh Castle, captured between old tenement walls. Small, accessible, and endlessly photogenic.',
+    lat: 55.9461,
+    lng: -3.1969,
+    bestTime: 'Any time; overcast flatters the stonework',
+    duration: 15,
+    traffic: 'Low',
+    openingTimes: 'Open 24 hours',
+  },
+
+  {
+    id: 'the-writers-museum',
+    name: "The Writers' Museum",
+    type: 'hidden-gem',
+    types: ['architecture', 'hidden-gem'],
+    description: "Tucked within Lady Stair's Close, a 17th-century townhouse surrounded by worn flagstones and literary history. Intimate, atmospheric, and largely overlooked by tourists.",
+    lat: 55.9499,
+    lng: -3.1944,
+    bestTime: 'Overcast mornings for soft, even light',
+    duration: 20,
+    traffic: 'Low',
+    openingTimes: 'Close open 24 hours; museum Tue–Sat 10:00–17:00',
   },
 
   {
     id: 'victoria-street',
     name: 'Victoria Street',
-    type: 'street',
+    type: 'historic-street',
+    types: ['historic-street'],
     description: "Edinburgh's most photogenic cobbled street curves gently between pastel shopfronts and wrought-iron railings. A versatile urban setting for fashion, lifestyle, and couple sessions.",
     lat: 55.9474,
     lng: -3.1937,
@@ -91,77 +274,20 @@ export const locations = [
     duration: 30,
     traffic: 'High',
     openingTimes: 'Open 24 hours (quietest before 09:00)',
-    imageCount: 3,
   },
 
   {
-    id: 'dean-village',
-    name: 'Dean Village',
-    type: 'street',
-    description: 'A hidden riverside hamlet tucked below street level, with stone mill buildings and the Water of Leith winding through. A tranquil, storybook setting just minutes from the city centre.',
-    lat: 55.9519,
-    lng: -3.2142,
-    bestTime: 'Mid-morning with dappled riverside light',
-    duration: 45,
-    traffic: 'Low',
+    id: 'waverley-bridge',
+    name: 'Waverley Bridge',
+    type: 'viewpoint',
+    types: ['viewpoint'],
+    description: 'The bridge spanning Waverley station offers panoramic views of the Old Town skyline and the Scott Monument rising above the gardens. Central, dramatic, and always active.',
+    lat: 55.9508,
+    lng: -3.1885,
+    bestTime: 'Golden hour or blue hour for skyline drama',
+    duration: 20,
+    traffic: 'High',
     openingTimes: 'Open 24 hours',
-    imageCount: 3,
-  },
-
-  {
-    id: 'stockbridge',
-    name: 'Stockbridge',
-    type: 'street',
-    description: "Edinburgh's most charming village neighbourhood — Georgian townhouses, independent boutiques, and the Water of Leith walkway. Natural and candid street portraits thrive in this relaxed setting.",
-    lat: 55.9567,
-    lng: -3.2063,
-    bestTime: 'Late morning or weekend afternoons',
-    duration: 45,
-    traffic: 'Moderate',
-    openingTimes: 'Open 24 hours',
-    imageCount: 3,
-  },
-
-  {
-    id: 'royal-botanic-garden',
-    name: 'Royal Botanic Garden',
-    type: 'greenspace',
-    description: '72 acres of curated landscapes including glasshouses, a rock garden, and ancient woodland paths. Seasonal colour year-round — from spring blossom to the deep reds and golds of autumn.',
-    lat: 55.9622,
-    lng: -3.2094,
-    bestTime: 'Late morning or early afternoon',
-    duration: 60,
-    traffic: 'Moderate',
-    openingTimes: '10:00–18:00 (summer), 10:00–16:00 (winter)',
-    imageCount: 3,
-  },
-
-  {
-    id: 'holyrood-park',
-    name: 'Holyrood Park',
-    type: 'greenspace',
-    description: 'A wild Highland landscape within the city — home to dramatic cliffs, St Margaret\'s Loch, and open heathland. Exceptional variety of terrain for adventurous, romantic, or fine-art shoots.',
-    lat: 55.9421,
-    lng: -3.1706,
-    bestTime: 'Golden hour; any time for overcast drama',
-    duration: 75,
-    traffic: 'Moderate',
-    openingTimes: 'Open 24 hours',
-    imageCount: 3,
-  },
-
-  {
-    id: 'cramond-island',
-    name: 'Cramond Island',
-    type: 'waterfront',
-    description: 'Walk the tidal causeway to a secluded island studded with WWII ruins and open sea views. Vast skies, salt flats, and dramatic isolation make this one of the most striking locations near Edinburgh.',
-    lat: 55.9797,
-    lng: -3.2987,
-    bestTime: 'Low tide, late afternoon (check tide tables)',
-    duration: 90,
-    traffic: 'Low',
-    openingTimes: 'Accessible ~2 hours either side of low tide',
-    imageCount: 3,
   },
 
 ];

@@ -6,20 +6,22 @@
 /* --- Type labels ------------------------------------------- */
 
 const TYPE_LABELS = {
-  viewpoint:  'Viewpoint',
-  historic:   'Historic',
-  greenspace: 'Greenspace',
-  street:     'Street',
-  waterfront: 'Waterfront',
+  viewpoint:       'Viewpoint',
+  'historic-street': 'Historic Street',
+  architecture:    'Architecture',
+  greenspace:      'Green Space',
+  waterside:       'Waterside',
+  'hidden-gem':    'Hidden Gem',
 };
 
 export function typeLabel(type) {
   return TYPE_LABELS[type] ?? type;
 }
 
-/** Normalise traffic string to a CSS-safe class segment */
-export function trafficClass(traffic) {
-  return traffic.toLowerCase().split(' ')[0];
+/** Returns a comma-separated label string for all of a location's types */
+export function typeLabels(loc) {
+  const types = loc.types ?? [loc.type];
+  return types.map(t => TYPE_LABELS[t] ?? t).join(', ');
 }
 
 /** Format a duration in minutes as a human-readable string */
@@ -32,17 +34,12 @@ export function formatDuration(minutes) {
 
 /* --- Image resolution -------------------------------------- */
 
-const PLACEHOLDERS = [
-  'assets/placeholders/placeholder-1.svg',
-  'assets/placeholders/placeholder-2.svg',
-  'assets/placeholders/placeholder-3.svg',
-];
+const PLACEHOLDER = 'assets/placeholders/placeholder.svg';
 
 /** Return the array of image src strings for a location */
 export function getImages(loc) {
   if (loc.images && loc.images.length > 0) return loc.images;
-  const count = loc.imageCount ?? 3;
-  return PLACEHOLDERS.slice(0, Math.min(count, PLACEHOLDERS.length));
+  return [PLACEHOLDER];
 }
 
 /* --- Material Symbols icons -------------------------------- */

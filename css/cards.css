@@ -50,6 +50,7 @@
 .card-type {
   font-size: var(--text-sm);
   color: var(--color-text-muted);
+  font-weight: var(--weight-medium);
 }
 
 .card-shortlist-btn {

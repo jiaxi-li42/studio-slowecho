@@ -4,7 +4,7 @@
    image only). Carousel exists only in the modal.
    ============================================================ */
 
-import { typeLabel, getImages } from './ui.js';
+import { typeLabels, getImages } from './ui.js';
 
 /* ---------------------------------------------------------- */
 
@@ -32,7 +32,7 @@ export function updateCardSaveState(id, saved) {
 export function applyCardFilter(type) {
   const cards = document.querySelectorAll('.card');
   cards.forEach(card => {
-    const match = type === 'all' || card.dataset.type === type;
+    const match = type === 'all' || card.dataset.types?.split(' ').includes(type);
     card.hidden = !match;
   });
   updateNoResults();
@@ -44,9 +44,11 @@ export function applyCardFilter(type) {
 function createCard(loc) {
   const images  = getImages(loc);
   const article = document.createElement('article');
-  article.className    = 'card';
-  article.dataset.id   = loc.id;
-  article.dataset.type = loc.type;
+  const locTypes = loc.types ?? [loc.type];
+  article.className         = 'card';
+  article.dataset.id        = loc.id;
+  article.dataset.type      = loc.type;
+  article.dataset.types     = locTypes.join(' ');
 
   article.innerHTML = `
     <div class="card-image">
@@ -54,7 +56,7 @@ function createCard(loc) {
     </div>
     <div class="card-info">
       <p class="card-name">${loc.name}</p>
-      <p class="card-type">${typeLabel(loc.type)}</p>
+      <p class="card-type">${typeLabels(loc)}</p>
       <button class="card-shortlist-btn" data-id="${loc.id}">Add to Shortlist</button>
     </div>
   `;

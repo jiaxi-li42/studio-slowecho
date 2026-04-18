@@ -3,7 +3,7 @@
    Expanded location overlay with numbered carousel pagination.
    ============================================================ */
 
-import { typeLabel, trafficClass, getImages } from './ui.js';
+import { typeLabels, getImages } from './ui.js';
 import { isSaved } from './shortlist.js';
 
 let _locations = [];
@@ -126,7 +126,6 @@ function initModalCarousel(inner, slideCount) {
 
 function buildModalHtml(loc, images) {
   const saved = isSaved(loc.id);
-  const tc    = trafficClass(loc.traffic);
 
   const slides = images
     .map((src, i) =>
@@ -157,7 +156,7 @@ function buildModalHtml(loc, images) {
     <div class="modal-content">
       <div class="modal-head">
         <h2 class="modal-title">${loc.name}</h2>
-        <p class="modal-type">${typeLabel(loc.type)}</p>
+        <p class="modal-type">${typeLabels(loc)}</p>
       </div>
       <p class="modal-description">${loc.description}</p>
     </div>
@@ -170,7 +169,7 @@ function buildModalHtml(loc, images) {
         </div>
         <div class="modal-detail-item">
           <dt>Traffic</dt>
-          <dd class="traffic-${tc}">${loc.traffic}</dd>
+          <dd>${loc.traffic}</dd>
         </div>
         <div class="modal-detail-item">
           <dt>Duration</dt>
