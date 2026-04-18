@@ -126,7 +126,7 @@ function buildPopup(loc) {
       <p class="popup-type">${typeLabel(loc.type)}</p>
     </div>
     <div class="popup-actions">
-      <button class="marker-popup-detail" data-id="${loc.id}">View Details</button>
+      <button class="marker-popup-detail" data-id="${loc.id}">View</button>
       <button class="marker-popup-save" data-id="${loc.id}">${isSaved(loc.id) ? 'Remove from Shortlist' : 'Add to Shortlist'}</button>
       </div>
     </div>

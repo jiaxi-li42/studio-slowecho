@@ -86,6 +86,40 @@ function initModalCarousel(inner, slideCount) {
   pageNums.forEach(btn =>
     btn.addEventListener('click', () => goTo(parseInt(btn.dataset.index, 10)))
   );
+
+  // Swipe / drag navigation (touch + mouse)
+  const track = inner.querySelector('.carousel-track');
+  if (!track) return;
+  let dragStartX = 0;
+  let isDragging = false;
+
+  // Touch
+  track.addEventListener('touchstart', e => {
+    dragStartX = e.touches[0].clientX;
+  }, { passive: true });
+
+  track.addEventListener('touchend', e => {
+    const dx = e.changedTouches[0].clientX - dragStartX;
+    if (Math.abs(dx) < 40) return;
+    goTo(dx < 0 ? current + 1 : current - 1);
+  }, { passive: true });
+
+  // Mouse — mouseup on document so it fires even outside the track
+  track.addEventListener('mousedown', e => {
+    dragStartX = e.clientX;
+    isDragging = true;
+    track.style.cursor = 'grabbing';
+    e.preventDefault(); // block native image drag
+  });
+
+  document.addEventListener('mouseup', e => {
+    if (!isDragging) return;
+    isDragging = false;
+    track.style.cursor = '';
+    const dx = e.clientX - dragStartX;
+    if (Math.abs(dx) < 40) return;
+    goTo(dx < 0 ? current + 1 : current - 1);
+  });
 }
 
 /* --- HTML builder ------------------------------------------ */

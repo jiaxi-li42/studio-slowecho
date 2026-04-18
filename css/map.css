@@ -172,8 +172,9 @@
 
 .popup-actions {
   display: flex;
-  flex-direction: column;
-  gap: var(--space-2);
+  flex-direction: row;
+  justify-content: space-between;
+  gap: var(--space-4);
 }
 
 .marker-popup-detail,
