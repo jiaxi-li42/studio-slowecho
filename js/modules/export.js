@@ -42,23 +42,7 @@ async function exportShortlist() {
     document.body.removeChild(el);
 
     const dataUrl = canvas.toDataURL('image/jpeg', 0.92);
-    const win = window.open('', '_blank');
-    if (win) {
-      win.document.write(`<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <title>Your Shortlist — Studio Slowecho</title>
-    <style>
-      * { margin: 0; padding: 0; box-sizing: border-box; }
-      body { background: #1a1a1a; display: flex; justify-content: center; align-items: flex-start; min-height: 100vh; padding: 40px 20px; }
-      img { max-width: 100%; height: auto; display: block; }
-    </style>
-  </head>
-  <body><img src="${dataUrl}"></body>
-</html>`);
-      win.document.close();
-    }
+    showExportOverlay(dataUrl);
 
   } catch (err) {
     console.error('[export] Failed:', err);
@@ -67,6 +51,55 @@ async function exportShortlist() {
     exportBtn.hidden = false;
     if (spinner) spinner.hidden = true;
   }
+}
+
+/* --- In-page image overlay --------------------------------- */
+
+function showExportOverlay(dataUrl) {
+  // Remove any existing overlay
+  document.getElementById('export-overlay')?.remove();
+
+  const overlay = document.createElement('div');
+  overlay.id = 'export-overlay';
+  overlay.style.cssText = `
+    position:fixed;inset:0;z-index:900;
+    background:rgba(0,0,0,0.85);
+    backdrop-filter:blur(8px);
+    -webkit-backdrop-filter:blur(8px);
+    display:flex;flex-direction:column;
+    align-items:center;justify-content:center;
+    padding:24px;
+    gap:16px;
+  `;
+
+  const img = document.createElement('img');
+  img.src = dataUrl;
+  img.style.cssText = `
+    max-width:100%;max-height:calc(100dvh - 100px);
+    height:auto;display:block;
+  `;
+
+  const closeBtn = document.createElement('button');
+  closeBtn.textContent = 'Close';
+  closeBtn.style.cssText = `
+    background:none;border:1px solid rgba(255,255,255,0.3);
+    color:#fff;font-family:inherit;font-size:13px;
+    padding:8px 24px;cursor:pointer;
+    transition:border-color 0.15s;
+  `;
+  closeBtn.addEventListener('mouseenter', () => closeBtn.style.borderColor = '#fff');
+  closeBtn.addEventListener('mouseleave', () => closeBtn.style.borderColor = 'rgba(255,255,255,0.3)');
+
+  const dismiss = () => overlay.remove();
+  closeBtn.addEventListener('click', dismiss);
+  overlay.addEventListener('click', e => { if (e.target === overlay) dismiss(); });
+  document.addEventListener('keydown', function onKey(e) {
+    if (e.key === 'Escape') { dismiss(); document.removeEventListener('keydown', onKey); }
+  });
+
+  overlay.appendChild(img);
+  overlay.appendChild(closeBtn);
+  document.body.appendChild(overlay);
 }
 
 /* --- Off-screen export element ----------------------------- */
