@@ -112,7 +112,8 @@
 .list-footer-copy {
   display: flex;
   gap: var(--space-1);
-  font-size: var(--text-sm);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-medium);
   color: var(--color-text-faint);
 }
 
