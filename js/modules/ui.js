@@ -6,12 +6,12 @@
 /* --- Type labels ------------------------------------------- */
 
 const TYPE_LABELS = {
-  viewpoint:         'Viewpoint',
-  'historic-street': 'Historic Street',
-  architecture:      'Architecture',
-  greenspace:        'Green Space',
-  waterside:         'Waterside',
-  'hidden-gem':      'Hidden Gem',
+  viewpoint:         '观景点',
+  'historic-street': '历史街道',
+  architecture:      '地标建筑',
+  greenspace:        '公园绿地',
+  waterside:         '沿海和水边',
+  'hidden-gem':      '小众去处',
 };
 
 /** Returns a comma-separated label string for all of a location's types */

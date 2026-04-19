@@ -41,18 +41,18 @@
     <!-- Shortlist toggle + filter bar -->
     <div class="panel-top">
       <div class="panel-header">
-        <button class="shortlist-toggle" id="shortlist-toggle" aria-label="View shortlist">Shortlist (<span id="shortlist-count">0</span>)</button>
+        <button class="shortlist-toggle" id="shortlist-toggle" aria-label="View shortlist">收藏夹 (<span id="shortlist-count">0</span>)</button>
       </div>
-      <p class="filter-bar" id="filter-bar" role="navigation" aria-label="Filter by location type"><button class="filter-item active" data-filter="all">All</button><button class="filter-item" data-filter="viewpoint">Viewpoints</button><button class="filter-item" data-filter="historic-street">Historic Streets</button><button class="filter-item" data-filter="architecture">Architecture</button><button class="filter-item" data-filter="greenspace">Green Spaces</button><button class="filter-item" data-filter="waterside">Waterside</button><button class="filter-item" data-filter="hidden-gem">Hidden Gems</button></p>
+      <p class="filter-bar" id="filter-bar" role="navigation" aria-label="Filter by location type"><button class="filter-item active" data-filter="all">全部</button><button class="filter-item" data-filter="viewpoint">观景点</button><button class="filter-item" data-filter="historic-street">历史街道</button><button class="filter-item" data-filter="architecture">地标建筑</button><button class="filter-item" data-filter="greenspace">公园绿地</button><button class="filter-item" data-filter="waterside">沿海和水边</button><button class="filter-item" data-filter="hidden-gem">小众去处</button></p>
     </div>
 
     <!-- Scrollable card list -->
     <div class="cards-panel" id="cards-panel">
       <div class="cards-grid" id="cards-grid"></div>
-      <p class="no-results" id="no-results" hidden>No locations match this filter.</p>
+      <p class="no-results" id="no-results" hidden>没有符合的地点。</p>
       <footer class="list-footer">
         <img src="assets/studio-logo.svg" alt="Studio Slowecho" class="list-footer-logo">
-        <span class="list-footer-copy"><span id="list-footer-year"></span>&copy; All Rights Reserved</span>
+        <span class="list-footer-copy"><span id="list-footer-year"></span>&copy; 版权所有</span>
       </footer>
     </div>
 
@@ -64,21 +64,21 @@
        ================================================================ -->
   <aside class="shortlist-drawer" id="shortlist-drawer" aria-label="Your shortlist">
     <div class="drawer-header">
-      <p class="drawer-title">Your Shortlist (<span id="shortlist-count-drawer">0</span>)</p>
-      <button class="drawer-close" id="drawer-close">Close</button>
+      <p class="drawer-title">您的收藏夹 (<span id="shortlist-count-drawer">0</span>)</p>
+      <button class="drawer-close" id="drawer-close">关闭</button>
     </div>
 
     <div class="drawer-body">
-      <p class="drawer-empty" id="drawer-empty">No locations saved yet.</p>
+      <p class="drawer-empty" id="drawer-empty">您还没有收藏地点。</p>
       <ul class="shortlist-list" id="shortlist-list" aria-label="Saved locations"></ul>
     </div>
 
     <div class="drawer-footer">
       <div class="duration-row">
-        <span class="duration-label">Estimated Duration (Commute Time Excl.)</span>
+        <span class="duration-label">预计拍摄时间 (不含通勤)</span>
         <strong class="duration-value" id="duration-total">—</strong>
       </div>
-      <button class="export-btn" id="export-btn">Export as JPEG</button>
+      <button class="export-btn" id="export-btn">导出为JPEG</button>
     </div>
   </aside>
 

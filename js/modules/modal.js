@@ -28,7 +28,7 @@ export function initModal(locations) {
     const btn = document.querySelector('.modal-shortlist-btn');
     if (btn?.dataset.id === e.detail) {
       const saved = isSaved(e.detail);
-      btn.textContent = saved ? 'Remove from Shortlist' : 'Add to Shortlist';
+      btn.textContent = saved ? '移出收藏夹' : '加入收藏夹';
       btn.classList.toggle('saved', saved);
     }
   });
@@ -145,7 +145,7 @@ function buildModalHtml(loc, images) {
   ` : '';
 
   return `
-    <button class="modal-close" aria-label="Close">Close</button>
+    <button class="modal-close" aria-label="Close">关闭</button>
 
     <div class="modal-carousel">
       <div class="carousel-track">${slides}</div>
@@ -164,19 +164,19 @@ function buildModalHtml(loc, images) {
     <div class="modal-details">
       <dl class="modal-detail-grid">
         <div class="modal-detail-item">
-          <dt>Best Time</dt>
+          <dt>最佳时段</dt>
           <dd>${loc.bestTime}</dd>
         </div>
         <div class="modal-detail-item">
-          <dt>Traffic</dt>
+          <dt>人流量</dt>
           <dd>${loc.traffic}</dd>
         </div>
         <div class="modal-detail-item">
-          <dt>Duration</dt>
+          <dt>建议拍摄时长</dt>
           <dd>~${loc.duration} min</dd>
         </div>
         <div class="modal-detail-item">
-          <dt>Opening Times</dt>
+          <dt>开放时间</dt>
           <dd>${loc.openingTimes}</dd>
         </div>
       </dl>
@@ -184,7 +184,7 @@ function buildModalHtml(loc, images) {
 
     <div class="modal-footer">
       <button class="modal-shortlist-btn${saved ? ' saved' : ''}" data-id="${loc.id}">
-        ${saved ? 'Remove from Shortlist' : 'Add to Shortlist'}
+        ${saved ? '移出收藏夹' : '加入收藏夹'}
       </button>
     </div>
   `;

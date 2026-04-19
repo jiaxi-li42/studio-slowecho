@@ -91,7 +91,7 @@ function refreshDrawerList() {
         <span class="shortlist-item-name">${loc.name}</span>
         <span class="shortlist-item-type">${typeLabels(loc)}</span>
       </div>
-      <button class="shortlist-remove" data-id="${loc.id}" aria-label="Remove ${loc.name}">Remove</button>
+      <button class="shortlist-remove" data-id="${loc.id}" aria-label="Remove ${loc.name}">移除</button>
     `;
     li.querySelector('.shortlist-remove').addEventListener('click', e => {
       e.stopPropagation();

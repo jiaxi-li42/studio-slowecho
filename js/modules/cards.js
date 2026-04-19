@@ -22,7 +22,7 @@ export function updateCardSaveState(id, saved) {
   const btn  = card?.querySelector('.card-shortlist-btn');
   if (!card || !btn) return;
   card.classList.toggle('saved', saved);
-  btn.textContent = saved ? 'Remove from Shortlist' : 'Add to Shortlist';
+  btn.textContent = saved ? '移出收藏夹' : '加入收藏夹';
 }
 
 /** Show or hide cards based on active filter */
@@ -53,7 +53,7 @@ function createCard(loc) {
     <div class="card-info">
       <p class="card-name">${loc.name}</p>
       <p class="card-type">${typeLabels(loc)}</p>
-      <button class="card-shortlist-btn" data-id="${loc.id}">Add to Shortlist</button>
+      <button class="card-shortlist-btn" data-id="${loc.id}">加入收藏夹</button>
     </div>
   `;
 

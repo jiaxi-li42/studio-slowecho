@@ -122,8 +122,8 @@ function buildPopup(loc) {
       <p class="popup-type">${typeLabels(loc)}</p>
     </div>
     <div class="popup-actions">
-      <button class="marker-popup-detail" data-id="${loc.id}">View</button>
-      <button class="marker-popup-save" data-id="${loc.id}">${isSaved(loc.id) ? 'Remove from Shortlist' : 'Add to Shortlist'}</button>
+      <button class="marker-popup-detail" data-id="${loc.id}">查看</button>
+      <button class="marker-popup-save" data-id="${loc.id}">${isSaved(loc.id) ? '移出收藏夹' : '加入收藏夹'}</button>
     </div>
   `;
   return div;
@@ -140,7 +140,7 @@ function updateMarkerSavedState(id) {
 
 function updatePopupSaveState(marker, id) {
   const btn = marker.getPopup()?.getElement()?.querySelector('.marker-popup-save');
-  if (btn) btn.textContent = isSaved(id) ? 'Remove from Shortlist' : 'Add to Shortlist';
+  if (btn) btn.textContent = isSaved(id) ? '移出收藏夹' : '加入收藏夹';
 }
 
 export function highlightMarker(id) {

@@ -81,7 +81,7 @@ function showExportOverlay(dataUrl) {
   `;
 
   const closeBtn = document.createElement('button');
-  closeBtn.textContent = 'Close';
+  closeBtn.textContent = '关闭';
   closeBtn.style.cssText = `
     width:480px;max-width:100%;
     background:none;border:1px solid rgba(255,255,255,0.3);
@@ -93,7 +93,7 @@ function showExportOverlay(dataUrl) {
   closeBtn.addEventListener('mouseleave', () => closeBtn.style.borderColor = 'rgba(255,255,255,0.3)');
 
   const hint = document.createElement('p');
-  hint.textContent = 'Long-press the image to save it to your device.';
+  hint.textContent = '长按图片以保存到你的设备上。';
   hint.style.cssText = `
     width:480px;max-width:100%;
     font-family:inherit;font-size:12px;
@@ -194,7 +194,7 @@ function buildExportElement(saved) {
       justify-content:space-between;
     ">
       <span style="font-family:${FB};font-size:13px;color:${TEXT};font-weight:500;">
-        Estimated Duration (Commute Time Excl.)
+        预计拍摄时间 (不含通勤)
       </span>
       <span style="font-family:${FB};font-size:14px;color:${TEXT};font-weight:500;white-space:nowrap;margin-left:16px;">
         ${totalStr}
