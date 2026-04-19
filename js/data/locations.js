@@ -36,6 +36,7 @@ export const locations = [
     duration: 20,
     traffic: 'Moderate',
     openingTimes: 'Open 24 hours',
+    images: ['assets/sample_image_1.webp', 'assets/sample_image_2.webp', 'assets/sample_image_3.webp'] 
   },
 
   {

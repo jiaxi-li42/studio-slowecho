@@ -91,6 +91,31 @@
   grid-column: 1 / -1;
 }
 
+/* --- List footer ------------------------------------------- */
+
+.list-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--space-1);
+  margin-top: var(--space-10);
+  padding-top: var(--space-5);
+  border-top: 1px solid var(--color-border);
+}
+
+.list-footer-logo {
+  height: 20px;
+  width: auto;
+  display: block;
+}
+
+.list-footer-copy {
+  display: flex;
+  gap: var(--space-1);
+  font-size: var(--text-sm);
+  color: var(--color-text-faint);
+}
+
 /* ============================================================
    MOBILE — bottom sheet
    ============================================================ */
@@ -133,6 +158,11 @@
 
   .cards-grid {
     grid-template-columns: 1fr 1fr;
+  }
+
+  .list-footer {
+    flex-direction: column;
+    align-items: flex-start;
   }
 
 }

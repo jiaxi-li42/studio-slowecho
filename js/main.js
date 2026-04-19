@@ -24,6 +24,10 @@ document.addEventListener('DOMContentLoaded', () => {
   initMap(locations);
   initBottomSheet();
 
+  // Copyright year
+  const yearEl = document.getElementById('list-footer-year');
+  if (yearEl) yearEl.textContent = new Date().getFullYear();
+
   // ── Cross-module event wiring ────────────────────────────
 
   window.addEventListener('filter-changed', e => applyCardFilter(e.detail));
