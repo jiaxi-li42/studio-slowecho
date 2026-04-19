@@ -20,19 +20,13 @@
   --color-text:       #333333;
   --color-text-muted: #838383;
   --color-text-faint: #a9a9a9;
-  --color-text-hover: #434343;
+  --color-text-hover: #b9b9b9;
 
   /* Accent — replace with your brand colour */
   --color-accent:       #333333;
   --color-accent-hover: #434343;
-  --color-accent-faint: rgba(51, 51, 51, 0.07);
 
   --color-scrim: rgba(0, 0, 0, 0.35);
-
-  /* Traffic */
-  --color-traffic-low:       #2a7a2a;
-  --color-traffic-moderate:  #b85a00;
-  --color-traffic-high:      #b82a2a;
 
 
   /* ----------------------------------------------------------

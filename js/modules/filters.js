@@ -28,7 +28,3 @@ export function initFilters() {
     window.dispatchEvent(new CustomEvent('filter-changed', { detail: type }));
   });
 }
-
-export function getActiveFilter() {
-  return _activeFilter;
-}

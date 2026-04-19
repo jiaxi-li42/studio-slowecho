@@ -8,11 +8,8 @@ import { typeLabels, getImages } from './ui.js';
 
 /* ---------------------------------------------------------- */
 
-let _locations = [];
-
 /** Render all cards into #cards-grid */
 export function renderCards(locations) {
-  _locations = locations;
   const grid = document.getElementById('cards-grid');
   grid.innerHTML = '';
   locations.forEach(loc => grid.appendChild(createCard(loc)));
@@ -45,10 +42,9 @@ function createCard(loc) {
   const images  = getImages(loc);
   const article = document.createElement('article');
   const locTypes = loc.types ?? [loc.type];
-  article.className         = 'card';
-  article.dataset.id        = loc.id;
-  article.dataset.type      = loc.type;
-  article.dataset.types     = locTypes.join(' ');
+  article.className     = 'card';
+  article.dataset.id    = loc.id;
+  article.dataset.types = locTypes.join(' ');
 
   article.innerHTML = `
     <div class="card-image">

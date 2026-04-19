@@ -1,22 +1,18 @@
 /* ============================================================
    SHARED UI UTILITIES — js/modules/ui.js
-   Pure functions: icons, labels, HTML helpers.
+   Pure helpers for labels, durations, and image resolution.
    ============================================================ */
 
 /* --- Type labels ------------------------------------------- */
 
 const TYPE_LABELS = {
-  viewpoint:       'Viewpoint',
+  viewpoint:         'Viewpoint',
   'historic-street': 'Historic Street',
-  architecture:    'Architecture',
-  greenspace:      'Green Space',
-  waterside:       'Waterside',
-  'hidden-gem':    'Hidden Gem',
+  architecture:      'Architecture',
+  greenspace:        'Green Space',
+  waterside:         'Waterside',
+  'hidden-gem':      'Hidden Gem',
 };
-
-export function typeLabel(type) {
-  return TYPE_LABELS[type] ?? type;
-}
 
 /** Returns a comma-separated label string for all of a location's types */
 export function typeLabels(loc) {
@@ -41,15 +37,3 @@ export function getImages(loc) {
   if (loc.images && loc.images.length > 0) return loc.images;
   return [PLACEHOLDER];
 }
-
-/* --- Material Symbols icons -------------------------------- */
-
-/** Render a Material Symbols Outlined icon */
-function msIcon(name, opts = '') {
-  return `<span class="material-symbols-outlined"${opts ? ' style="' + opts + '"' : ''}>${name}</span>`;
-}
-
-export const icons = {
-  chevronLeft:  () => msIcon('chevron_left'),
-  chevronRight: () => msIcon('chevron_right'),
-};

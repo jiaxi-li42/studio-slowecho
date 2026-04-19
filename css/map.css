@@ -198,6 +198,6 @@
 @media (hover: hover) {
   .marker-popup-detail:hover,
   .marker-popup-save:hover {
-    color: var(--color-text-hover);
+    color: var(--color-accent-hover);
   }
 }

@@ -30,7 +30,7 @@
 
 @media (hover: hover) {
   .filter-item:hover {
-    color: var(--color-text-hover);
+    color: var(--color-text);
   }
 }
 

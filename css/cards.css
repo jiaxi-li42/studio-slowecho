@@ -45,12 +45,24 @@
   letter-spacing: var(--tracking-wider);
   text-transform: uppercase;
   color: var(--color-text);
+  transition: color var(--transition-fast);
 }
 
 .card-type {
   font-size: var(--text-sm);
   color: var(--color-text-muted);
   font-weight: var(--weight-medium);
+  transition: color var(--transition-fast);
+}
+
+@media (hover: hover) {
+  .card:hover:not(:has(.card-shortlist-btn:hover)) .card-name {
+    color: var(--color-text-hover);
+  }
+
+  .card:hover:not(:has(.card-shortlist-btn:hover)) .card-type {
+    color: var(--color-text-hover);
+  }
 }
 
 .card-shortlist-btn {

@@ -39,10 +39,6 @@ export function initMap(locations) {
   window.addEventListener('save-toggled',   e => updateMarkerSavedState(e.detail));
   window.addEventListener('filter-changed', e => updateMarkerFilter(e.detail));
 
-  window.addEventListener('card-hover', e => {
-    e.detail ? highlightMarker(e.detail) : resetHighlights();
-  });
-
   // Focus map when a location-focus event is fired (desktop card click, mobile popup detail)
   window.addEventListener('location-focus', e => focusLocation(e.detail));
 
@@ -68,7 +64,7 @@ export function initMap(locations) {
 /* --- Focus on a location ----------------------------------- */
 
 /** Fly the map to a location and open its popup */
-export function focusLocation(id) {
+function focusLocation(id) {
   if (!_map) return;
   const entry = _markers[id];
   if (!entry) return;
@@ -128,7 +124,6 @@ function buildPopup(loc) {
     <div class="popup-actions">
       <button class="marker-popup-detail" data-id="${loc.id}">View</button>
       <button class="marker-popup-save" data-id="${loc.id}">${isSaved(loc.id) ? 'Remove from Shortlist' : 'Add to Shortlist'}</button>
-      </div>
     </div>
   `;
   return div;
