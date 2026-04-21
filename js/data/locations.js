@@ -36,6 +36,7 @@ export const locations = [
     duration: 15,
     traffic: '较大',
     openingTimes: '全天开放',
+    images: ['assets/advocates-close/advocates_close_1_2x.webp', 'assets/advocates-close/advocates_close_2_2x.webp']
   },
 
   {
@@ -50,6 +51,7 @@ export const locations = [
     duration: 60,
     traffic: '较大',
     openingTimes: '全天开放',
+    images: ['assets/calton-hill/calton_hill_1_2x.webp', 'assets/calton-hill/calton_hill_2_2x.webp', 'assets/calton-hill/calton_hill_3_2x.webp', 'assets/calton-hill/calton_hill_4_2x.webp']
   },
 
   {
@@ -64,6 +66,7 @@ export const locations = [
     duration: 30,
     traffic: '较小',
     openingTimes: '全天开放',
+    images: ['assets/circus-lane/circus_lane_1_2x.webp', 'assets/circus-lane/circus_lane_2_2x.webp', 'assets/circus-lane/circus_lane_3_2x.webp']
   },
 
   {
@@ -78,6 +81,7 @@ export const locations = [
     duration: 15,
     traffic: '适中',
     openingTimes: '全天开放',
+    images: ['assets/cockburn-street/cockburn_street_1_2x.webp', 'assets/cockburn-street/cockburn_street_2_2x.webp']
   },
 
   {
@@ -92,6 +96,7 @@ export const locations = [
     duration: 60,
     traffic: '适中',
     openingTimes: '全天开放',
+    images: ['assets/dean-village/dean_village_1_2x.webp', 'assets/dean-village/dean_village_2_2x.webp', 'assets/dean-village/dean_village_3_2x.webp']
   },
 
   {
@@ -106,6 +111,7 @@ export const locations = [
     duration: 15,
     traffic: '适中',
     openingTimes: '全天开放',
+    images: ['assets/greyfriars-bobby/greyfriars_bobby_1_2x.webp', 'assets/greyfriars-bobby/greyfriars_bobby_2_2x.webp']
   },
 
   {
@@ -120,6 +126,7 @@ export const locations = [
     duration: 120,
     traffic: '较小',
     openingTimes: '全天开放',
+    images: ['assets/holyrood-park/holyrood_park_1_2x.webp', 'assets/holyrood-park/holyrood_park_2_2x.webp', 'assets/holyrood-park/holyrood_park_3_2x.webp']
   },
 
   {
@@ -134,6 +141,7 @@ export const locations = [
     duration: 30,
     traffic: '适中',
     openingTimes: '需要提前查询',
+    images: ['assets/new-college/new_college_1_2x.webp']
   },
 
   {
@@ -148,6 +156,7 @@ export const locations = [
     duration: 30,
     traffic: '较小',
     openingTimes: '需要提前查询',
+    images: ['assets/old-college/old_college_1_2x.webp', 'assets/old-college/old_college_2_2x.webp']
   },
 
   {
@@ -162,6 +171,7 @@ export const locations = [
     duration: 120,
     traffic: '适中',
     openingTimes: '全天开放',
+    images: ['assets/portobello-beach/portobello_beach_1_2x.webp', 'assets/portobello-beach/portobello_beach_2_2x.webp', 'assets/portobello-beach/portobello_beach_3_2x.webp']
   },
 
   {
@@ -176,6 +186,7 @@ export const locations = [
     duration: 30,
     traffic: '适中',
     openingTimes: '早上7点开放，闭园时间全年有所调整',
+    images: ['assets/ross-fountain/ross_fountain_1_2x.webp', 'assets/ross-fountain/ross_fountain_2_2x.webp']
   },
 
   {
@@ -190,6 +201,7 @@ export const locations = [
     duration: 30,
     traffic: '较大',
     openingTimes: '早上7点开放，闭园时间全年有所调整',
+    images: ['assets/scott-monument/scott_monument_1_2x.webp', 'assets/scott-monument/scott_monument_2_2x.webp']
   },
 
   {
@@ -204,6 +216,7 @@ export const locations = [
     duration: 45,
     traffic: '较大',
     openingTimes: '外部全天开放',
+    images: ['assets/st-giles-cathedral/st_giles_cathedral_1_2x.webp', 'assets/st-giles-cathedral/st_giles_cathedral_2_2x.webp', 'assets/st-giles-cathedral/st_giles_cathedral_3_2x.webp']
   },
 
   {
@@ -218,6 +231,7 @@ export const locations = [
     duration: 15,
     traffic: '适中',
     openingTimes: '全天开放',
+    images: ['assets/the-cowgate/the_cowgate_1_2x.webp', 'assets/the-cowgate/the_cowgate_2_2x.webp', 'assets/the-cowgate/the_cowgate_3_2x.webp']
   },
 
   {
@@ -232,6 +246,7 @@ export const locations = [
     duration: 45,
     traffic: '适中',
     openingTimes: '全天开放',
+    images: ['assets/the-meadows/the_meadows_1_2x.webp', 'assets/the-meadows/the_meadows_2_2x.webp']
   },
 
   {
@@ -246,6 +261,7 @@ export const locations = [
     duration: 30,
     traffic: '适中',
     openingTimes: '全天开放',
+    images: ['assets/the-vennel/the_vennel_1_2x.webp', 'assets/the-vennel/the_vennel_2_2x.webp']
   },
 
   {
@@ -260,6 +276,7 @@ export const locations = [
     duration: 15,
     traffic: '适中',
     openingTimes: '外部全天开放',
+    images: ['assets/the-writers-museum/the_writers_museum_1_2x.webp', 'assets/the-writers-museum/the_writers_museum_2_2x.webp']
   },
 
   {
@@ -274,6 +291,7 @@ export const locations = [
     duration: 30,
     traffic: '较大',
     openingTimes: '全天开放',
+    images: ['assets/victoria-street/victoria_street_1_2x.webp', 'assets/victoria-street/victoria_street_2_2x.webp']
   },
 
   {
@@ -288,6 +306,7 @@ export const locations = [
     duration: 30,
     traffic: '适中',
     openingTimes: '全天开放',
+    images: ['assets/waverley-bridge/waverley_bridge_1_2x.webp', 'assets/waverley-bridge/waverley_bridge_2_2x.webp', 'assets/waverley-bridge/waverley_bridge_3_2x.webp']
   },
 
 ];
