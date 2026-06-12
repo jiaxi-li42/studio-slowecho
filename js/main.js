@@ -3,9 +3,14 @@
    App bootstrap and cross-module event wiring.
    ============================================================ */
 
-import { locations }   from './data/locations.js';
+import { locations as defaultLocations } from './data/locations.js';
+import { locations as visitLocations }   from './data/locations-visit.js';
 import { renderCards, applyCardFilter, updateCardSaveState, scrollToCard }
                        from './modules/cards.js';
+
+const locations = window.location.pathname.startsWith('/visit')
+  ? visitLocations
+  : defaultLocations;
 import { initFilters } from './modules/filters.js';
 import { initShortlist, isSaved } from './modules/shortlist.js';
 import { initModal }   from './modules/modal.js';
